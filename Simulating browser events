@@ -1,0 +1,113 @@
+1. Visiting a URL
+
+GET a URL, following any redirects, and making sure final page is successful
+
+visit "/some/url"
+
+    In general, elements can be located by their inner text, their ‘title’ attribute, their ‘name’ attribute, and their ‘id’ attribute.
+    They can be selected using a String, which is converted to an escaped Regexp effectively making it a substring match, or using a Regexp.
+    An exception is that using Strings for ids are compared exactly (using ==) rather than converted to a Regexp
+    If the element you are trying to look up does not exist, an error occurs
+
+2. Visiting Link
+
+Links can be looked up by text, title, or id
+
+for example To match… Click here to join!
+
+we can write down like
+
+click_link "Click here to join!"             # substring text
+click_link /join/i                                    # regexp text
+click_link "Sign up"                             # substring title
+click_link /sign.*up/i                            # regexp title
+click_link /signup.*link/i                       # regexp id
+click_link "signup_link"                       # exact id
+
+3. Filling Up a form
+
+Note:
+
+    All fields can be looked up by ID, name, or label inner text
+    Text fields, password fields, and text areas can be filled in using fill_in
+
+Enter your Email
+
+fill_in "user_email", :with => "test@example.com"                     # exact id
+fill_in /user.*email/, :with => "test@example.com"                   # regexp id
+fill_in "user[email]", :with => "test@example.com"               # substring name
+fill_in /user[.*mail.*]/, :with => "test@example.com"          # substring name
+fill_in "Enter your Email", :with => "test@example.com"    # substring label text
+fill_in /enter your email/i, :with => "test@example.com"    # regexp label text
+
+Note: Hidden fields can also be set using
+
+set_hidden_field 'user[l337_test]', :to => 'true'
+
+4. Selecting from Drop Down
+
+Select options can be ‘selected’ by inner text (an exact String or a Regexp to match). It can optionally be selected from a particular select field, using
+the usual id, name, or label text.
+
+select "Free account"
+select "Free account", :from => "Account Types"
+select "Free account", :from => "user[account_type]"
+select "Free account", :from => "user_account_type"
+
+5. Check Boxes
+
+Check boxes can be ‘checked’ and ‘unchecked’
+
+check 'Remember me'
+uncheck 'Remember me'
+
+6. Radio Buttons
+
+Radio buttons can be also choosen, using the usual label text, name, or id.
+
+choose "Yes"
+
+7. Buttons
+
+click_button "Register"
+
+Assertions
+
+check for text in the body of html tags
+can be a string or regexp
+
+assert_contain("Successfully created")
+assert_contain(/trogdor/i)
+assert_not_contain("peasants")
+
+check for a css3 selector
+
+assert_have_selector 'div.pagination'
+assert_have_no_selector 'form input#name'
+
+Note: Assertion does work not inside block
+
+Matchers
+
+check for text in the body of html tags
+an be a string or regexp
+
+response.should contain("BURNINATOR")
+response.should contain(/trogdor/i)
+response.should_not contain("peasants")
+
+check for a css3 selector
+
+response.should have_selector('div.pagination')
+response.should_not have_selector('form input#name')
+
+Targetted actions/matchers
+
+within 'div.pagination' do |scope|
+	scope.click_link "1"
+end
+
+within '.shows' do |scope|
+	scope.should contain("NFL")
+	# unfortunately, assertions don't support this currently
+end

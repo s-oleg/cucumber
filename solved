@@ -1,4 +1,10 @@
-##########If you have problem with testing Devise in:
+########## By default Cucumber not found hidden data
+FIX
+in /features/support/env.rb
+change (add)
+  Capybara.ignore_hidden_elements = false
+
+########## If you have problem with testing Devise in:
 
   visit '/users/sign_out'
   
@@ -22,4 +28,4 @@ or
 ########## How to make check for visibility
   find(:css, "#some_element").should be_visible
   
-########## next
+########## to be continue...

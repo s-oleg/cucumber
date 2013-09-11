@@ -1,0 +1,22 @@
+##########If you have problem with testing Devise in:
+
+  visit '/users/sign_out'
+  
+SOLVED:
+
+Change:
+
+  config.sign_out_via = :delete
+
+for
+
+  config.sign_out_via = Rails.env.test? ? :get : :delete
+
+in config/initializers/devise.rb
+
+########## Find first element and click it(if you have several same elements, like table)
+  first(:link, link).click
+or
+  all('a').select {|elt| elt.text == 'your_element' }.first.click
+
+########## next

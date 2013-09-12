@@ -1,3 +1,25 @@
+########## You need install next gems
+
+  group :test do
+    gem "rspec"
+    gem "rspec-rails"
+    gem 'factory_girl'
+    gem 'factory_girl_rails'
+    gem 'database_cleaner'
+    gem 'shoulda'
+    gem 'cucumber-rails', require: false
+    gem 'webrat', require: false
+    gem 'capybara'
+    gem "selenium-webdriver"
+    gem "email_spec"
+  end
+
+
+########## To install cucumber
+  rails g cucumber:install --capybara --rspec --skip-database
+The –capybara option sets up Capybara instead of Webrat.
+The –rspec option enables RSpec matchers for your step definitions.
+
 ########## By default Cucumber not found hidden data
 FIX
 in /features/support/env.rb

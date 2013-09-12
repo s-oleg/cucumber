@@ -1,0 +1,10 @@
+For use selenium you must add to yore Gemfile
+  gem "selenium-webdriver"
+  
+And before yout cucumber Scenario add @javascript or @selenium or @rack_test
+
+Ex:
+  @javascript
+  Scenario: do something Ajaxy
+    When I click the Ajax link
+    .....
